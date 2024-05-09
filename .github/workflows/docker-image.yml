@@ -3,13 +3,12 @@ on:
   push:
     branches: [ "main" ]
 jobs:
-
   Trivy-Scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@main
-
+        
       - name: Run Trivy vulnerability scanner in repo mode
         id: scan_vulnerability
         uses: aquasecurity/trivy-action@master
@@ -18,7 +17,7 @@ jobs:
           scan-ref: '.'
           ignore-unfixed: true
           output: 'trivy-results.txt'
-          severity: 'CRITICAL'
+          severity: 'HIGH,CRITICAL'
 
       - name: Slack Notification when trivy fails
         if: success() && job.steps.scan_vulnerability.status == failure()
@@ -26,30 +25,15 @@ jobs:
         env:
           SLACK_CHANNEL: "test-submission"
           SLACK_COLOR: "failure"
-          SLACK_MESSAGE: "Failed to trivy scan, see the report"
+          SLACK_MESSAGE: "Failed trivy scan, see uploaded report"
           SLACK_TITLE: "Scan failed"
           SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
 
-      - name: build and push container
-        id: build-and-push
+      - name: upload the trivy report
+        uses: MeilCli/slack-upload-file@v4
         with:
-          tags: ${{ steps.docker_meta.outputs.tags }}
-        run: |
-          docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
-          docker build -t garden1a/go-fortune:${{ github.sha }} .
-          docker push garden1a/go-fortune:${{ github.sha }}
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3.5.0
-        
-      - name: Digitally sign the image
-        env:
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
-          TAGS: ${{ steps.docker_meta.outputs.tags }}
-        run: |
-          images=""
-          for tag in ${TAGS}; do
-            images+="${tag}@${DIGEST} "
-          done
-          cosign sign --yes ${images}
+          slack_token: "xoxb-6957628588181-7028297010820-T9Ltevs8E59VkmCYZzrORrJi"
+          channel_id: "C06UB2DHPC4"
+          file_path: '${{ github.workspace }}/trivy-results.txt'
+          initial_comment: 'upload of trivy report'
