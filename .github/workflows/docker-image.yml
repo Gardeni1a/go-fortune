@@ -24,7 +24,6 @@ jobs:
           channel-id: 'C06UB2DHPC4'
           slack-message: "GitHub build result: ${{ job.status }}"
         env:
-          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
           SLACK_BOT_TOKEN: "xoxb-6957628588181-7028297010820-T9Ltevs8E59VkmCYZzrORrJi"
   build:
     runs-on: ubuntu-latest
