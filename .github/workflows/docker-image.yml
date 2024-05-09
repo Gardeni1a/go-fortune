@@ -21,7 +21,6 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          channel-id: 'C06UB2DHPC4'
           payload: |
             {
               "text": "GitHub Action build result: ${{ job.status }}",
@@ -36,6 +35,8 @@ jobs:
               ]
             }
         env:
+          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
           SLACK_BOT_TOKEN: "xoxb-6957628588181-7028297010820-T9Ltevs8E59VkmCYZzrORrJi"
   build:
     runs-on: ubuntu-latest
