@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build and push container
-        run: 
+        run: |
           docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
           docker build -t fred/go-fortune:v1 .
           docker push fred/go-fortune:v1
