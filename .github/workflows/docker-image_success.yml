@@ -1,0 +1,63 @@
+name: Build and Push
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+
+  Trivy-Scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        id: scan_vulnerability
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          ignore-unfixed: true
+          output: 'trivy-results.txt'
+          severity: 'CRITICAL'
+
+      - name: Slack Notification when trivy fails
+        if: success() && job.steps.scan_vulnerability.status == failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: "test-submission"
+          SLACK_COLOR: "failure"
+          SLACK_MESSAGE: "Failed to trivy scan, see the report"
+          SLACK_TITLE: "Scan failed"
+          SLACK_USERNAME: "Du Haoxi"
+          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
+
+      - name: build and push container
+        id: build-and-push
+        with:
+          tags: ${{ steps.docker_meta.outputs.tags }}
+        run: |
+          docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
+          docker build -t garden1a/go-fortune:${{ github.sha }} .
+          docker push garden1a/go-fortune:${{ github.sha }}
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.5.0
+        
+      - name: Digitally sign the image
+        env:
+          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+          TAGS: ${{ steps.docker_meta.outputs.tags }}
+        run: |
+          images=""
+          for tag in ${TAGS}; do
+            images+="${tag}@${DIGEST} "
+          done
+          cosign sign --yes ${images}
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: "test-submission"
+          SLACK_COLOR: "success"
+          SLACK_USERNAME: "Du Haoxi"
+          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
