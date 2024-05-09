@@ -27,8 +27,7 @@ jobs:
           SLACK_MESSAGE: "Failed trivy scan, see uploaded report"
           SLACK_TITLE: "Scan failed"
           SLACK_USERNAME: "Du Haoxi"
-          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
   build:
     runs-on: ubuntu-latest
     steps:
