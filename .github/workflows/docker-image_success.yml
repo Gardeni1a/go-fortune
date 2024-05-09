@@ -2,7 +2,7 @@ name: Build and Push image
 on:
   push:
     branches:
-    - 'main'
+    - 'release/v1.0'
 jobs:
 
   build:
@@ -57,8 +57,8 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: "test-submission"
+          SLACK_CHANNEL: "submission"
           SLACK_COLOR: "success"
           SLACK_MESSAGE: "Name: Du Haoxi \n Email:E1327905@u.nus.edu \n Git:https://github.com/Gardeni1a/go-fortune \n Image:https://hub.docker.com/repository/docker/garden1a/go-fortune"
           SLACK_USERNAME: "Du Haoxi"
-          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
