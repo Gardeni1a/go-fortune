@@ -1,8 +1,8 @@
 name: Build and Push
 on:
   push:
-    tags:
-    - 'release/v<digit>.<digit>.'
+    branches:
+    - 'main'
 jobs:
   Trivy-Scan:
     runs-on: ubuntu-latest
