@@ -23,7 +23,7 @@ jobs:
         env:
           SLACK_CHANNEL: "test-submission"
           SLACK_COLOR: "failure"
-          SLACK_MESSAGE: "Failed trivy scan, see uploaded report"
+          SLACK_MESSAGE: "Failed to trivy scan, see the report"
           SLACK_TITLE: "Scan failed"
           SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
@@ -33,7 +33,7 @@ jobs:
           slack_token: "xoxb-6957628588181-7028297010820-T9Ltevs8E59VkmCYZzrORrJi"
           channel_id: "C06UB2DHPC4"
           file_path: '${{ github.workspace }}/trivy-results.txt'
-          initial_comment: 'upload of trivy report'
+          initial_comment: 'upload the trivy report'
   build:
     runs-on: ubuntu-latest
     steps:
