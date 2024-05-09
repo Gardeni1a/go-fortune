@@ -48,5 +48,5 @@ jobs:
       - name: build and push container
         run: |
           docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
-          docker build -t garden1a/go-fortune:${{ GITHUB_SHA }} .
-          docker push garden1a/go-fortune:${{ GITHUB_SHA }}
+          docker build -t garden1a/go-fortune:${{ github.sha }} .
+          docker push garden1a/go-fortune:${{ github.sha }}
