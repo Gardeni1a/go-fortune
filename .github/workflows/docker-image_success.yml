@@ -45,7 +45,7 @@ jobs:
       - name: Digitally sign the image
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
-          TAGS: ${{ github.sha }}
+          TAGS: garden1a/go-fortune:${{ github.sha }}
         run: |
           images=""
           for tag in ${TAGS}; do
