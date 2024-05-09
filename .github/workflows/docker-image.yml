@@ -20,6 +20,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@main
       - name: build and push container
         run: |
           docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
