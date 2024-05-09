@@ -25,7 +25,7 @@ jobs:
         env:
           SLACK_CHANNEL: "test-submission"
           SLACK_COLOR: "failure"
-          SLACK_MESSAGE: "Failed trivy scan, see uploaded report"
+          SLACK_MESSAGE: "Failed trivy scan, see below report"
           SLACK_TITLE: "Scan failed"
           SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
