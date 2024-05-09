@@ -15,7 +15,6 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           ignore-unfixed: true
-          format: 'txt'
           output: 'trivy-results.txt'
           severity: 'HIGH,CRITICAL'
       - name: Slack Notification when trivy fails
