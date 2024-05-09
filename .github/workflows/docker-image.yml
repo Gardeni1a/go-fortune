@@ -34,13 +34,3 @@ jobs:
           channel_id: "C06UB2DHPC4"
           file_path: '${{ github.workspace }}/trivy-results.txt'
           initial_comment: 'upload the trivy report'
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@main
-      - name: build and push container
-        run: |
-          docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
-          docker build -t garden1a/go-fortune:${{ github.sha }} .
-          docker push garden1a/go-fortune:${{ github.sha }}
