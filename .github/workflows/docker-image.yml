@@ -9,6 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@main
       - name: Run Trivy vulnerability scanner in repo mode
+        id: scan_vulnerability
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
@@ -17,27 +18,15 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL'
-      - name: Send custom JSON data to Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          channel-id: "C06UB2DHPC4"
-          payload: |
-            {
-              "text": "Message: GitHub Action build result: ${{ job.status }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}"
-                  }
-                }
-              ]
-            }
-          payload-file-path: "${{ github.workspace }}/trivy-results.sarif"
-          payload-file-path-parsed: false
+      - name: Slack Notification when trivy fails
+        if: success() && job.steps.scan_vulnerability.status == failure()
+        uses: rtCamp/action-slack-notify@v2
         env:
+          SLACK_CHANNEL: "test-submission"
+          SLACK_COLOR: "failure"
+          SLACK_MESSAGE: "Failed trivy scan, see uploaded report"
+          SLACK_TITLE: "Scan failed"
+          SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
   build:
