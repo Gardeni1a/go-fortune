@@ -21,6 +21,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
+          channel-id: "C06UB2DHPC4"
           payload: |
             {
               "text": "GitHub Action build result: ${{ job.status }}",
