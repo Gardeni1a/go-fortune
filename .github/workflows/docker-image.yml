@@ -17,7 +17,11 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL'
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results.sarif'
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build and push container
+        run: 
+          docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
+          docker build -t fred/go-fortune:v1 .
+          docker push fred/go-fortune:v1
