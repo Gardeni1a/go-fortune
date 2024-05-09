@@ -1,7 +1,8 @@
 name: Build and Push image 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+    - 'release/v<digit>.<digit>.'
 jobs:
 
   build:
