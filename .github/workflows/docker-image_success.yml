@@ -51,7 +51,7 @@ jobs:
         id: build-and-push
         with:
           push: true
-          tags: ${{ github.sha }}
+          tags: garden1a/go-fortune:${{ github.sha }}
    
       - name: Digitally sign the image
         env:
