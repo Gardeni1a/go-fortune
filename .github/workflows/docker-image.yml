@@ -35,6 +35,7 @@ jobs:
                 }
               ]
             }
+          payload-file-path: "${{ GITHUB_WORKSPACE }}/trivy-results.sarif"
         env:
           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
@@ -47,5 +48,5 @@ jobs:
       - name: build and push container
         run: |
           docker login --username='1143274832@qq.com' --password='duhaoxi010909.'
-          docker build -t garden1a/go-fortune:v1 .
-          docker push garden1a/go-fortune:v1
+          docker build -t garden1a/go-fortune:${{ GITHUB_SHA }} .
+          docker push garden1a/go-fortune:${{ GITHUB_SHA }}
