@@ -1,8 +1,8 @@
 name: Build and Push image 
 on:
   push:
-    tags:
-    - 'release/v<digit>.<digit>.'
+    branches:
+    - 'main'
 jobs:
 
   build:
@@ -59,5 +59,6 @@ jobs:
         env:
           SLACK_CHANNEL: "test-submission"
           SLACK_COLOR: "success"
+          SLACK_MESSAGE: "Name: Du Haoxi \n Email:E1327905@u.nus.edu \n Git:https://github.com/Gardeni1a/go-fortune \n Image:https://hub.docker.com/repository/docker/garden1a/go-fortune"
           SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
