@@ -4,7 +4,7 @@ on:
     branches: [ "main" ]
 jobs:
 
-  Trivy-Scan:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,17 +19,6 @@ jobs:
           ignore-unfixed: true
           output: 'trivy-results.txt'
           severity: 'CRITICAL'
-
-      - name: Slack Notification when trivy fails
-        if: success() && job.steps.scan_vulnerability.status == failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: "test-submission"
-          SLACK_COLOR: "failure"
-          SLACK_MESSAGE: "Failed to trivy scan, see the report"
-          SLACK_TITLE: "Scan failed"
-          SLACK_USERNAME: "Du Haoxi"
-          SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.5.0
