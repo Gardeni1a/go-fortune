@@ -28,10 +28,8 @@ jobs:
           SLACK_TITLE: "Scan failed"
           SLACK_USERNAME: "Du Haoxi"
           SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
-  post:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: MeilCli/slack-upload-file@v4
+      - name: upload of trivy report
+        uses: MeilCli/slack-upload-file@v4
         with:
           slack_token: "xoxb-6957628588181-7028297010820-T9Ltevs8E59VkmCYZzrORrJi"
           channel_id: "C06UB2DHPC4"
