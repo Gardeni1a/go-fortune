@@ -35,7 +35,7 @@ jobs:
                 }
               ]
             }
-          payload-file-path: "${{ GITHUB_WORKSPACE }}/trivy-results.sarif"
+          payload-file-path: "${{ github.workspace }}/trivy-results.sarif"
         env:
           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
